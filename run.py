@@ -7,7 +7,12 @@ users_list = [
             "role":'admin'
     }
 ]
-comments = []
+comments = [
+    {
+
+    }
+]
+user = ''
 
 class Auth():
     def signup(self):
@@ -22,7 +27,7 @@ class Auth():
 
         print('Enter your username')
         username = input()
-        self.username = username
+        self.username = input()
         name = [name for name in users_list if name['username'] == self.username]
         if name:
             return 'User already exist'
@@ -44,8 +49,7 @@ class Auth():
         }
         
         users_list.append(user_dict)
-        print("Successsfully registered in")
-        return 'Successfully registered'
+        print("Successsfully registered in")    
     
     def login(self):
         """user login 
@@ -71,7 +75,9 @@ class Auth():
             print( 'Error logging in, check your credentials')
             return
         self.logged_in_status = True
-        print(f"logged in at {self.timestamp}")
+        user = self.username
+        print("logged in at {}".format(self.timestamp))
+        
 
     def logout(self):
         if self.logged_in_status:
@@ -81,4 +87,13 @@ class Auth():
 
         return  self.login()
 
-Auth().login()
+
+class Comment():
+    def create_comment(self):
+        self.added_by = user
+        print("Write your comment")
+        comment = input()
+        self.comment = comment
+        print("Your comment is {} and your name is {}".format(self.comment, self.added_by))
+
+        
