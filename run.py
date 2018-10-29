@@ -7,9 +7,17 @@ users_list = [
             "role":'admin'
     }
 ]
-comments = []
+comments = [
+    {
+
+    }
+]
+user = []
 
 class Auth():
+    def __init__(self):
+        pass
+        
     def signup(self):
         """user register
                 
@@ -34,7 +42,8 @@ class Auth():
         self.confirm = confirm
         if self.password != self.confirm:
             print('Passwords should match')
-            return
+            print("PLease try agAIN")
+            return self.signup()
         self.role = 'user'
         user_dict = {
             "userid": len(users_list) + 1,
@@ -44,8 +53,8 @@ class Auth():
         }
         
         users_list.append(user_dict)
-        print("Successsfully registered in")
-        return 'Successfully registered'
+        print("Successsfully registered in") 
+        return True   
     
     def login(self):
         """user login 
@@ -68,10 +77,13 @@ class Auth():
         passw = [passw for passw in users_list if passw['password'] == self.password 
                                           and passw['username'] == self.username]
         if not passw:
-            print( 'Error logging in, check your credentials')
-            return
+            print( 'Error logging in, check your credentials, try again')
+            return self.login()
         self.logged_in_status = True
-        print(f"logged in at {self.timestamp}")
+        user.append(self.username)
+        print("logged in at {}".format(self.timestamp))
+        return True
+        
 
     def logout(self):
         if self.logged_in_status:
@@ -80,5 +92,28 @@ class Auth():
         print("Please log in first")
 
         return  self.login()
+        return True
 
-Auth().login()
+
+class Comment():
+    def create_comment(self):
+        self.added_by = user
+        print("Write your comment")
+        comment = input()
+        self.comment = comment
+        print("Your comment is {} and your name is {}".format(self.comment, user[0]))
+
+
+a = Auth()
+if a.signup():
+    print("Now log in")
+if a.login():
+    print("Dear user what do you want do?")
+    print("Enter c to comment or l to logout")
+    resp = input()
+    if resp == 'c':
+        b = Comment()
+        b.create_comment()
+    if resp == 'l':
+        a.logout()
+print("Sorry, invalid input,,quitting now")
